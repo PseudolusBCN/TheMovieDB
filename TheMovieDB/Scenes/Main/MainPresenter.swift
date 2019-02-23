@@ -28,7 +28,7 @@ class MainPresenter: InterfaceMainPresenter {
 
 extension MainPresenter: InterfaceMainInteractorOutput {
     func dataDownloaded() {
-        router?.gotoMainScene()
+        router?.gotoMoviesListScene()
     }
     
     func dataFailure() {

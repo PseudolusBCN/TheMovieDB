@@ -12,8 +12,8 @@ class MainRouter: InterfaceMainRouter {
     weak var presenter: InterfaceMainPresenter?
     weak var view: UIViewController?
     
-    func gotoMainScene() {
-//        let viewController = TabBarBuilder().main()
-//        view?.navigationController?.present(viewController, animated: true)
+    func gotoMoviesListScene() {
+        let viewController = MoviesListBuilder().main()
+        view?.navigationController?.present(viewController, animated: true)
     }
 }

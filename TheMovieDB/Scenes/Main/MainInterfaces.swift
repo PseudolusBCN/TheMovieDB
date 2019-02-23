@@ -38,5 +38,5 @@ protocol InterfaceMainInteractorOutput: class {
 protocol InterfaceMainRouter: class {
     var presenter: InterfaceMainPresenter? { get set }
     
-    func gotoMainScene()
+    func gotoMoviesListScene()
 }
