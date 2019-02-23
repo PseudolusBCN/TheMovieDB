@@ -30,6 +30,7 @@ class MoviesListViewController: UIViewController, InterfaceMoviesListViewControl
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        searchBar.delegate = self
         presenter?.setupCollectionView(collectionView, viewController: self)
     }
     
@@ -63,9 +64,10 @@ extension MoviesListViewController: UICollectionViewDataSource, UICollectionView
     }
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        // If the scroll reaches the end of the list and have pending pages, makes a new request
         if indexPath.row == (presenter?.itemsForSection(collectionView, section: indexPath.section))! - 1 {
             if presenter!.moviesPending() {
-                presenter?.downloadData()
+                presenter?.downloadData(searchBar.text!)
             }
         }
     }
@@ -99,12 +101,19 @@ extension MoviesListViewController: UICollectionViewDelegateMagazineLayout {
 
 extension MoviesListViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        print(searchText)
+        presenter?.downloadData(searchText)
     }
 }
 
 extension MoviesListViewController: InterfaceMoviesListPresenterOutput {
     func dataDownloaded() {
+        // When data comes from a no scrolling request, scrolls to top after the collection view's reload to avoid a new request
+        if ((presenter?.itemsForSection(collectionView, section: 0))!) > 0 {
+            if (presenter?.firstRequest())! {
+                collectionView?.scrollToItem(at: IndexPath(row: 0, section: 0), at: .top, animated: false)
+            }
+        }
+
         collectionView.reloadData()
     }
 }

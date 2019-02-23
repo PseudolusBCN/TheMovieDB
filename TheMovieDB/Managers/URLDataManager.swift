@@ -18,11 +18,22 @@ class URLDataManager: NSObject {
     }
     
     // MARK: - Public methods
-    func getMovies(_ page: Int, completion: @escaping(_ responseData: APIMovies?, _ error: NSError?) -> Void) {
-        let url = "https://api.themoviedb.org/3/movie/popular"
-        let params: [String : Any] = ["page" : page,
-                                      "api_key" : tmdbAPIKey]
-
+    func getMovies(_ page: Int, query: String, completion: @escaping(_ responseData: APIMovies?, _ error: NSError?) -> Void) {
+        var url: String
+        var params: [String : Any]
+        if query.isEmpty {
+            url = "https://api.themoviedb.org/3/movie/popular"
+            params = ["api_key" : tmdbAPIKey,
+                      "page" : page,
+                      "include_adult": "false"]
+        } else {
+            url = "https://api.themoviedb.org/3/search/movie"
+            params = ["api_key" : tmdbAPIKey,
+                      "page" : page,
+                      "include_adult": "false",
+                      "query": query]
+        }
+        
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
         processServiceRequest(.get, url: url, params: params) { (response, error) in
             UIApplication.shared.isNetworkActivityIndicatorVisible = false

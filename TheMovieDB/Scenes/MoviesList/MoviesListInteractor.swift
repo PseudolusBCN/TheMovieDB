@@ -44,11 +44,15 @@ class MoviesListInteractor: InterfaceMoviesListInteractor {
         return moviesManager.moviesPending()
     }
 
-    func downloadData() {
-        moviesManager.downloadDataFromNextPage(success: {
+    func firstRequest() -> Bool {
+        return moviesManager.firstRequest()
+    }
+
+    func downloadData(_ searchText: String) {
+        moviesManager.downloadData(query: searchText, success: {
             self.delegate.dataDownloaded()
-        }) { (error) in
+        }, failure: { (error) in
             self.delegate.dataFailure()
-        }
+        })
     }
 }

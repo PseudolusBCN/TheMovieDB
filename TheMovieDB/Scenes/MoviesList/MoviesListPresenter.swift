@@ -81,8 +81,12 @@ class MoviesListPresenter: InterfaceMoviesListPresenter {
         return interactor?.moviesPending() ?? false
     }
 
-    func downloadData() {
-        interactor?.downloadData()
+    func firstRequest() -> Bool {
+        return interactor?.firstRequest() ?? false
+    }
+
+    func downloadData(_ searchText: String) {
+        interactor?.downloadData(searchText)
     }
 
     // MARK: - Private methods

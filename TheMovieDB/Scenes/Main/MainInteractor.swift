@@ -21,7 +21,7 @@ class MainInteractor: InterfaceMainInteractor {
     // MAR: - Public methods
     func downloadData() {
         let moviesManager = MoviesManager.sharedInstance()
-        moviesManager.downloadDataFromFirstPage(success: {
+        moviesManager.downloadData(query: "", success: {
             self.delegate.dataDownloaded()
         }) { (error) in
             self.delegate.dataFailure()

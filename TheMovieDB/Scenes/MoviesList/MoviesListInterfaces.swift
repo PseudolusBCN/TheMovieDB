@@ -30,8 +30,9 @@ protocol InterfaceMoviesListPresenter: class {
     func collectionViewLayoutInsets() -> UIEdgeInsets
     
     func moviesPending() -> Bool
+    func firstRequest() -> Bool
 
-    func downloadData()
+    func downloadData(_ searchText: String)
 }
 
 protocol InterfaceMoviesListPresenterOutput: class {
@@ -47,8 +48,9 @@ protocol InterfaceMoviesListInteractor: class {
     func movieImage(_ index: NSInteger, completion: @escaping(_ responseData: UIImage) -> Void)
 
     func moviesPending() -> Bool
+    func firstRequest() -> Bool
 
-    func downloadData()
+    func downloadData(_ searchText: String)
 }
 
 protocol InterfaceMoviesListInteractorOutput: class {
