@@ -34,7 +34,7 @@ class MoviesListPresenter: InterfaceMoviesListPresenter {
     func collectionViewCell(_ collectionView: UICollectionView, indexPath: IndexPath) -> Any {
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: movieCellIdentifier(), for: indexPath) as? MovieCollectionViewCell {
             let movie = interactor?.movie(indexPath.row)
-            cell.posterImage.image = UIImage()
+            cell.posterImage.image = UIImage.emptyImage(with: cell.posterImage.bounds.size)
             interactor?.movieImage(indexPath.row, completion: { (image) in
                 cell.posterImage.image = image
                 cell.setNeedsLayout()
