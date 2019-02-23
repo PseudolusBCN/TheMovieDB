@@ -8,4 +8,4 @@
 
 import UIKit
 
-public let tmdbAPIKey = "93aea0c77bc168d8bbce3918cefefa45"
+public let tmdbAPIKey = "## TMDB API KEY HERE ##"
