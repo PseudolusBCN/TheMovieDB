@@ -13,7 +13,8 @@ class MoviesManager: NSObject {
 
     private var movies: [APIResult] = []
 
-    private var page = 1
+    private var currentPage = 0
+    private var totalPages = 0
     private var filteredList = false
     
     // MARK: - Singleton
@@ -36,14 +37,16 @@ class MoviesManager: NSObject {
 
     // MARK: - Public methods
     func downloadDataFromFirstPage(success: @escaping() -> Void, failure: @escaping(_ error: NSError?) -> Void) {
-        page = 1
         movies.removeAll()
-        URLDataManager().getMovies(page) { (response, error) in
+        filteredList = false
+        URLDataManager().getMovies(1) { (response, error) in
             guard response != nil, error == nil else {
                 failure(error)
                 return
             }
 
+            self.currentPage = response!.page!
+            self.totalPages = response!.totalPages!
             if let downloadedMovies = response!.results {
                 self.movies.append(contentsOf: downloadedMovies)
             }
@@ -52,13 +55,15 @@ class MoviesManager: NSObject {
     }
 
     func downloadDataFromNextPage(success: @escaping() -> Void, failure: @escaping(_ error: NSError?) -> Void) {
-        page += 1
-        URLDataManager().getMovies(page) { (response, error) in
+        filteredList = false
+        URLDataManager().getMovies(currentPage + 1) { (response, error) in
             guard response != nil, error == nil else {
                 failure(error)
                 return
             }
 
+            self.currentPage = response!.page!
+            self.totalPages = response!.totalPages!
             if let downloadedMovies = response!.results {
                 self.movies.append(contentsOf: downloadedMovies)
             }
@@ -67,11 +72,9 @@ class MoviesManager: NSObject {
     }
 
     func downloadFilteredDataFromFirstPage() {
-        page = 1
     }
 
     func downloadFilteredDataFromNextPage() {
-        page += 1
     }
     
     func moviesList() -> [APIResult]{
@@ -104,12 +107,7 @@ class MoviesManager: NSObject {
         completion(UIImage())
     }
     
-//    func movieImage(index: NSInteger) -> UIImage {
-//        if let moviePoster = movies[index].posterPath as String? {
-//            URLDataManager().getMovieImage(moviePoster) { (image) in
-//                return image
-//            }
-//        }
-//        return UIImage()
-//    }
+    func moviesPending() -> Bool {
+        return currentPage < totalPages
+    }
 }

@@ -28,9 +28,14 @@ protocol InterfaceMoviesListPresenter: class {
     func collectionViewLayoutHorizontalSpacing() -> CGFloat
     func collectionViewLayoutVerticalSpacing() -> CGFloat
     func collectionViewLayoutInsets() -> UIEdgeInsets
+    
+    func moviesPending() -> Bool
+
+    func downloadData()
 }
 
 protocol InterfaceMoviesListPresenterOutput: class {
+    func dataDownloaded()
 }
 
 protocol InterfaceMoviesListInteractor: class {
@@ -40,9 +45,15 @@ protocol InterfaceMoviesListInteractor: class {
     func movie(_ index: NSInteger) -> APIResult
     func movieDate(_ index: NSInteger) -> String
     func movieImage(_ index: NSInteger, completion: @escaping(_ responseData: UIImage) -> Void)
+
+    func moviesPending() -> Bool
+
+    func downloadData()
 }
 
 protocol InterfaceMoviesListInteractorOutput: class {
+    func dataDownloaded()
+    func dataFailure()
 }
 
 protocol InterfaceMoviesListRouter: class {

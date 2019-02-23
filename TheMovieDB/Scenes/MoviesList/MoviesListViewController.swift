@@ -63,13 +63,11 @@ extension MoviesListViewController: UICollectionViewDataSource, UICollectionView
     }
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        //*** CONSTRASTAR CURRENT PAGE CON TOTAL PAGES PARA ACTUALIZAR DATOS
-        
-//        if PlacesManager.sharedInstance().nextPageToken.count > 0 {
-//            if indexPath.row == (presenter?.itemsForSection(placesCollectionView, section: indexPath.section))! - 1 {
-//                presenter?.downloadData()
-//            }
-//        }
+        if indexPath.row == (presenter?.itemsForSection(collectionView, section: indexPath.section))! - 1 {
+            if presenter!.moviesPending() {
+                presenter?.downloadData()
+            }
+        }
     }
 }
 
@@ -106,4 +104,7 @@ extension MoviesListViewController: UISearchBarDelegate {
 }
 
 extension MoviesListViewController: InterfaceMoviesListPresenterOutput {
+    func dataDownloaded() {
+        collectionView.reloadData()
+    }
 }

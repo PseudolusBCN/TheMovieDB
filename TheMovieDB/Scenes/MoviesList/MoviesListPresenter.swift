@@ -77,6 +77,14 @@ class MoviesListPresenter: InterfaceMoviesListPresenter {
         return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
     }
 
+    func moviesPending() -> Bool {
+        return interactor?.moviesPending() ?? false
+    }
+
+    func downloadData() {
+        interactor?.downloadData()
+    }
+
     // MARK: - Private methods
     private func movieCellIdentifier() -> String {
         return "MovieCollectionCell"
@@ -84,4 +92,10 @@ class MoviesListPresenter: InterfaceMoviesListPresenter {
 }
 
 extension MoviesListPresenter: InterfaceMoviesListInteractorOutput {
+    func dataDownloaded() {
+        delegate.dataDownloaded()
+    }
+    
+    func dataFailure() {
+    }
 }

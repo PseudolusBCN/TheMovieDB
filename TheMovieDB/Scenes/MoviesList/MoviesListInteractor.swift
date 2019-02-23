@@ -13,6 +13,9 @@ class MoviesListInteractor: InterfaceMoviesListInteractor {
     
     unowned var delegate: InterfaceMoviesListInteractorOutput
     
+    private let moviesManager = MoviesManager.sharedInstance()
+    
+    
     // MARK: - Init
     init(delegate: InterfaceMoviesListInteractorOutput) {
         self.delegate = delegate
@@ -20,24 +23,32 @@ class MoviesListInteractor: InterfaceMoviesListInteractor {
     
     // MAR: - Public methods
     func numberOfMovies() -> Int {
-        let moviesManager = MoviesManager.sharedInstance()
         return moviesManager.moviesList().count
     }
 
     func movie(_ index: NSInteger) -> APIResult {
-        let moviesManager = MoviesManager.sharedInstance()
         return moviesManager.movie(index: index)
     }
 
     func movieDate(_ index: NSInteger) -> String {
-        let moviesManager = MoviesManager.sharedInstance()
         return moviesManager.movieDate(index: index)
     }
     
     func movieImage(_ index: NSInteger, completion: @escaping(_ responseData: UIImage) -> Void) {
-        let moviesManager = MoviesManager.sharedInstance()
         moviesManager.movieImage(index: index) { (image) in
             completion(image)
+        }
+    }
+
+    func moviesPending() -> Bool {
+        return moviesManager.moviesPending()
+    }
+
+    func downloadData() {
+        moviesManager.downloadDataFromNextPage(success: {
+            self.delegate.dataDownloaded()
+        }) { (error) in
+            self.delegate.dataFailure()
         }
     }
 }
