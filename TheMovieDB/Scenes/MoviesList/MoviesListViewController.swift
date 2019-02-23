@@ -111,10 +111,19 @@ extension MoviesListViewController: InterfaceMoviesListPresenterOutput {
         if ((presenter?.itemsForSection(collectionView, section: 0))!) > 0 {
             if (presenter?.firstRequest())! {
                 do {
-                    try collectionView?.scrollToItem(at: IndexPath(row: 0, section: 0), at: .top, animated: false)
+                    try collectionView?.scrollToItemOrThrow(at: IndexPath(row: 0, section: 0), at: .top, animated: false)
                 } catch {
-                    print("Unexpected error scrolling collection view")
+                    print(error)
                 }
+
+                
+   
+                
+//                do {
+//                    try? collectionView?.scrollToItemOrThrow(at: IndexPath(row: 0, section: 0), at: .top, animated: false)
+//                } catch let error {
+//                    print("Unspecified Error: \(error)")
+//                }
             }
         }
 

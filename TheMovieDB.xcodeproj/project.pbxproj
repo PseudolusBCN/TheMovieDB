@@ -10,6 +10,7 @@
 		3D1B75F62221771400429546 /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1B75F52221771300429546 /* UIImage.swift */; };
 		3D1B75F822217B5D00429546 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 3D1B75F722217B5D00429546 /* README.md */; };
 		3D1B75FA2221BA4E00429546 /* PicturesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1B75F92221BA4E00429546 /* PicturesManager.swift */; };
+		3D1B75FC2221CF8A00429546 /* UICollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1B75FB2221CF8A00429546 /* UICollectionView.swift */; };
 		3D4DC0C9222071600082B41A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D4DC0C8222071600082B41A /* AppDelegate.swift */; };
 		3D4DC0D0222071670082B41A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3D4DC0CF222071670082B41A /* Assets.xcassets */; };
 		3D4DC0D3222071670082B41A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3D4DC0D1222071670082B41A /* LaunchScreen.storyboard */; };
@@ -69,6 +70,7 @@
 		3D1B75F52221771300429546 /* UIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImage.swift; sourceTree = "<group>"; };
 		3D1B75F722217B5D00429546 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		3D1B75F92221BA4E00429546 /* PicturesManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PicturesManager.swift; sourceTree = "<group>"; };
+		3D1B75FB2221CF8A00429546 /* UICollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UICollectionView.swift; sourceTree = "<group>"; };
 		3D4DC0C5222071600082B41A /* TheMovieDB.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TheMovieDB.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3D4DC0C8222071600082B41A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3D4DC0CF222071670082B41A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -206,6 +208,7 @@
 				3D4DC1282220C0980082B41A /* UIApplication.swift */,
 				3D4DC12A2220C0A10082B41A /* UIColor.swift */,
 				3D1B75F52221771300429546 /* UIImage.swift */,
+				3D1B75FB2221CF8A00429546 /* UICollectionView.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -583,6 +586,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3D1B75FC2221CF8A00429546 /* UICollectionView.swift in Sources */,
 				3D4DC1022220746D0082B41A /* MainBuilder.swift in Sources */,
 				3D4DC10C222074AA0082B41A /* MainRouter.swift in Sources */,
 				3D4DC108222074960082B41A /* MainPresenter.swift in Sources */,

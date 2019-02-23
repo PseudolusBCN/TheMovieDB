@@ -41,10 +41,8 @@ class PicturesManager: NSObject {
     }
     
     func updatePicture(_ picture: UIImage, index: NSInteger) {
-        do {
-            try! pictures[index] = picture
-        } catch {
-            print("Unexpected error updating picture")
+        if index < pictures.count {
+            pictures[index] = picture
         }
     }
     
