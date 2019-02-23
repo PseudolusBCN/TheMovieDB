@@ -32,6 +32,8 @@ class MoviesManager: NSObject {
     private var previousSeachType: MovieSearch = .global
     private var previousQuery = ""
     
+    private let picturesManager = PicturesManager.sharedInstance()
+
     // MARK: - Singleton
     class func sharedInstance() -> MoviesManager {
         guard let currentInstance = instance else {
@@ -136,6 +138,7 @@ class MoviesManager: NSObject {
     }
 
     private func downloadDataFromFirstPage(success: @escaping() -> Void, failure: @escaping(_ error: NSError?) -> Void) {
+        picturesManager.removeAllPictures()
         movies = []
         movieSeachType = .global
         
@@ -157,6 +160,7 @@ class MoviesManager: NSObject {
     }
     
     private func downloadFilteredDataFromFirstPage(query: String, success: @escaping() -> Void, failure: @escaping(_ error: NSError?) -> Void) {
+        picturesManager.removeAllPictures()
         movies = []
         movieSeachType = .filtered
         
@@ -189,6 +193,7 @@ class MoviesManager: NSObject {
             self.currentPage = response!.page!
             self.totalPages = response!.totalPages!
             if let downloadedMovies = response!.results {
+                self.picturesManager.initPicturesList(downloadedMovies.count)
                 self.movies.append(contentsOf: downloadedMovies)
             }
             success()

@@ -82,7 +82,6 @@ class URLDataManager: NSObject {
     }
     
     private func cancellAllRequests() {
-        print("Cancelling previous requests")
         Alamofire.SessionManager.default.session.getTasksWithCompletionHandler { (sessionDataTask, uploadData, downloadData) in
             sessionDataTask.forEach { $0.cancel() }
             uploadData.forEach { $0.cancel() }

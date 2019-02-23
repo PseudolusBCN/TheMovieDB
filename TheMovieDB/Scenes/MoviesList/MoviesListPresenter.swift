@@ -34,14 +34,23 @@ class MoviesListPresenter: InterfaceMoviesListPresenter {
     func collectionViewCell(_ collectionView: UICollectionView, indexPath: IndexPath) -> Any {
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: movieCellIdentifier(), for: indexPath) as? MovieCollectionViewCell {
             let movie = interactor?.movie(indexPath.row)
-            cell.posterImage.image = UIImage.emptyImage(with: cell.posterImage.bounds.size)
-            interactor?.movieImage(indexPath.row, completion: { (image) in
-                cell.posterImage.image = image
-                cell.setNeedsLayout()
-            })
             cell.titleLabel.text = movie?.title
             cell.releaseLabel.text = interactor?.movieDate(indexPath.row)
             cell.overviewLabel.text = movie?.overview
+
+            let picturesManager = PicturesManager.sharedInstance()
+            if let picture = picturesManager.picture(indexPath.row) {
+                cell.posterImage.image = picture
+                cell.setNeedsLayout()
+            } else {
+                cell.posterImage.image = UIImage.emptyImage(with: cell.posterImage.bounds.size)
+                interactor?.movieImage(indexPath.row, completion: { (image) in
+                    picturesManager.updatePicture(image, index: indexPath.row)
+                    cell.posterImage.image = image
+                    cell.setNeedsLayout()
+                })
+
+            }
 
             return cell
         }

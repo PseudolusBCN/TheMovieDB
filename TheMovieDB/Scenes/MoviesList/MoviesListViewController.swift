@@ -110,7 +110,11 @@ extension MoviesListViewController: InterfaceMoviesListPresenterOutput {
         // When data comes from a no scrolling request, scrolls to top after the collection view's reload to avoid a new request
         if ((presenter?.itemsForSection(collectionView, section: 0))!) > 0 {
             if (presenter?.firstRequest())! {
-                collectionView?.scrollToItem(at: IndexPath(row: 0, section: 0), at: .top, animated: false)
+                do {
+                    try collectionView?.scrollToItem(at: IndexPath(row: 0, section: 0), at: .top, animated: false)
+                } catch {
+                    print("Unexpected error scrolling collection view")
+                }
             }
         }
 
