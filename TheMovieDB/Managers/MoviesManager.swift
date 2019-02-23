@@ -92,6 +92,10 @@ class MoviesManager: NSObject {
     
     func movieDate(index: NSInteger) -> String {
         if let releaseDate = movies[index].releaseDate as String? {
+            guard !releaseDate.isEmpty else {
+                return ""
+            }
+
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "yyyy-MM-dd"
             

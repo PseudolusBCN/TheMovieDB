@@ -30,7 +30,9 @@ class MoviesListViewController: UIViewController, InterfaceMoviesListViewControl
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        searchBar.showsCancelButton = true
         searchBar.delegate = self
+
         presenter?.setupCollectionView(collectionView, viewController: self)
     }
     
@@ -103,6 +105,14 @@ extension MoviesListViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         presenter?.downloadData(searchText)
     }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
+    }
 }
 
 extension MoviesListViewController: InterfaceMoviesListPresenterOutput {
@@ -115,15 +125,6 @@ extension MoviesListViewController: InterfaceMoviesListPresenterOutput {
                 } catch {
                     print(error)
                 }
-
-                
-   
-                
-//                do {
-//                    try? collectionView?.scrollToItemOrThrow(at: IndexPath(row: 0, section: 0), at: .top, animated: false)
-//                } catch let error {
-//                    print("Unspecified Error: \(error)")
-//                }
             }
         }
 
