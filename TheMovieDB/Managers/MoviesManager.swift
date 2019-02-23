@@ -11,7 +11,7 @@ import UIKit
 class MoviesManager: NSObject {
     private static var instance: MoviesManager?
 
-    private var movies: [APIResults] = []
+    private var movies: [APIResult] = []
 
     private var page = 1
     private var filteredList = false
@@ -73,4 +73,43 @@ class MoviesManager: NSObject {
     func downloadFilteredDataFromNextPage() {
         page += 1
     }
+    
+    func moviesList() -> [APIResult]{
+        return movies
+    }
+
+    func movie(index: NSInteger) -> APIResult {
+        return movies[index]
+    }
+    
+    func movieDate(index: NSInteger) -> String {
+        if let releaseDate = movies[index].releaseDate as String? {
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd"
+            
+            let date = dateFormatter.date(from: releaseDate)
+            dateFormatter.dateFormat = "yyyy"
+
+            return dateFormatter.string(from: date!)
+        }
+        return ""
+    }
+    
+    func movieImage(index: NSInteger, completion: @escaping(_ responseData: UIImage) -> Void) {
+        if let moviePoster = movies[index].posterPath as String? {
+            URLDataManager().getMovieImage(moviePoster) { (image) in
+                completion(image)
+            }
+        }
+        completion(UIImage())
+    }
+    
+//    func movieImage(index: NSInteger) -> UIImage {
+//        if let moviePoster = movies[index].posterPath as String? {
+//            URLDataManager().getMovieImage(moviePoster) { (image) in
+//                return image
+//            }
+//        }
+//        return UIImage()
+//    }
 }

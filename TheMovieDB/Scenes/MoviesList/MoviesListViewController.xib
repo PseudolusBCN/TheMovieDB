@@ -1,13 +1,20 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13142" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12042"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MoviesListViewController" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MoviesListViewController" customModule="TheMovieDB" customModuleProvider="target">
             <connections>
+                <outlet property="collectionView" destination="H6c-oj-ro7" id="UZ0-g1-HFK"/>
+                <outlet property="searchBar" destination="IE4-Dk-VOz" id="6Th-Ue-6YN"/>
+                <outlet property="searchDisplayController" destination="Tf6-Jq-Ncr" id="WDS-xt-NVr"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -15,8 +22,42 @@
         <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="IE4-Dk-VOz">
+                    <rect key="frame" x="0.0" y="20" width="375" height="56"/>
+                    <textInputTraits key="textInputTraits"/>
+                </searchBar>
+                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="H6c-oj-ro7">
+                    <rect key="frame" x="0.0" y="76" width="375" height="591"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="HJT-HC-AtN">
+                        <size key="itemSize" width="50" height="50"/>
+                        <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                        <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                        <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                    </collectionViewFlowLayout>
+                </collectionView>
+            </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="IE4-Dk-VOz" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="2k8-J6-ef2"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="H6c-oj-ro7" secondAttribute="trailing" id="D5Z-nN-ssR"/>
+                <constraint firstItem="H6c-oj-ro7" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="JHW-ZB-Jwb"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="IE4-Dk-VOz" secondAttribute="trailing" id="L7g-2w-ATS"/>
+                <constraint firstItem="H6c-oj-ro7" firstAttribute="top" secondItem="IE4-Dk-VOz" secondAttribute="bottom" id="h6h-pk-ums"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="H6c-oj-ro7" secondAttribute="bottom" id="ttT-Ci-zSW"/>
+                <constraint firstItem="IE4-Dk-VOz" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="vMU-qh-DSR"/>
+            </constraints>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <point key="canvasLocation" x="55.200000000000003" y="48.125937031484263"/>
         </view>
+        <searchDisplayController id="Tf6-Jq-Ncr">
+            <connections>
+                <outlet property="delegate" destination="-1" id="ioO-K8-U2C"/>
+                <outlet property="searchContentsController" destination="-1" id="A3o-ft-gEp"/>
+                <outlet property="searchResultsDataSource" destination="-1" id="4Bs-Qr-B24"/>
+                <outlet property="searchResultsDelegate" destination="-1" id="PzK-P9-7Sg"/>
+            </connections>
+        </searchDisplayController>
     </objects>
 </document>

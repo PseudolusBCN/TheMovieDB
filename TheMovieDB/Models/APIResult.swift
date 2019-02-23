@@ -1,5 +1,5 @@
 //
-//  APIResults.swift
+//  APIResult.swift
 //  TheMovieDB
 //
 //  Created by Miquel Masip on 22/02/2019.
@@ -9,7 +9,7 @@
 import UIKit
 import ObjectMapper
 
-class APIResults: Mappable {
+class APIResult: Mappable {
     var id: Int?
     var adult: Bool?
     var backdropPath: String?

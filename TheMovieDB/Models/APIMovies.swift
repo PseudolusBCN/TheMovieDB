@@ -13,7 +13,7 @@ class APIMovies: Mappable {
     var page: Int!
     var totalPages: Int?
     var totalResults: Int?
-    var results: [APIResults]?
+    var results: [APIResult]?
 
     // MARK: - Init
     required init?(map: Map) {

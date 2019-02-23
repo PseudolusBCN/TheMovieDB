@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MagazineLayout
 
 class MoviesListPresenter: InterfaceMoviesListPresenter {
     var router: InterfaceMoviesListRouter?
@@ -21,7 +22,66 @@ class MoviesListPresenter: InterfaceMoviesListPresenter {
     }
     
     // MARK: - Public methods
- }
+    func setupCollectionView(_ collectionView: UICollectionView, viewController: UIViewController) {
+        let nib = UINib(nibName: "MovieCollectionViewCell", bundle: nil)
+        collectionView.register(nib, forCellWithReuseIdentifier: movieCellIdentifier())
+        
+        collectionView.collectionViewLayout = MagazineLayout()
+        collectionView.dataSource = viewController as? UICollectionViewDataSource
+        collectionView.delegate = viewController as? UICollectionViewDelegate
+    }
+    
+    func collectionViewCell(_ collectionView: UICollectionView, indexPath: IndexPath) -> Any {
+        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: movieCellIdentifier(), for: indexPath) as? MovieCollectionViewCell {
+            let movie = interactor?.movie(indexPath.row)
+            cell.posterImage.image = UIImage()
+            interactor?.movieImage(indexPath.row, completion: { (image) in
+                cell.posterImage.image = image
+                cell.setNeedsLayout()
+            })
+            cell.titleLabel.text = movie?.title
+            cell.releaseLabel.text = interactor?.movieDate(indexPath.row)
+            cell.overviewLabel.text = movie?.overview
+
+            return cell
+        }
+        
+        return UITableViewCell()
+    }
+    
+    func itemsForSection(_ collectionView: UICollectionView, section: Int) -> Int {
+        return (interactor?.numberOfMovies())!
+    }
+
+    func collectionViewLayoutItemSizeMode() -> MagazineLayoutItemSizeMode {
+        return MagazineLayoutItemSizeMode(widthMode: .fullWidth(respectsHorizontalInsets: true), heightMode: .dynamic)
+    }
+
+    func collectionViewLayoutHeaderVisibilityMode() -> MagazineLayoutHeaderVisibilityMode {
+        return .hidden
+    }
+
+    func collectionViewLayoutBackgroundVisibilityMode() -> MagazineLayoutBackgroundVisibilityMode {
+        return .hidden
+    }
+    
+    func collectionViewLayoutHorizontalSpacing() -> CGFloat {
+        return 0.0
+    }
+    
+    func collectionViewLayoutVerticalSpacing() -> CGFloat {
+        return 0.0
+    }
+    
+    func collectionViewLayoutInsets() -> UIEdgeInsets {
+        return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+    }
+
+    // MARK: - Private methods
+    private func movieCellIdentifier() -> String {
+        return "MovieCollectionCell"
+    }
+}
 
 extension MoviesListPresenter: InterfaceMoviesListInteractorOutput {
 }

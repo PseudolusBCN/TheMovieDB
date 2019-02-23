@@ -8,6 +8,7 @@
 
 import UIKit
 import Alamofire
+import AlamofireImage
 import ObjectMapper
 
 class URLDataManager: NSObject {
@@ -32,6 +33,19 @@ class URLDataManager: NSObject {
             
             let mappedResponse = Mapper<APIMovies>().map(JSONObject: response)
             completion(mappedResponse, nil)
+        }
+    }
+    
+    func getMovieImage(_ imagePath: String, completion: @escaping(_ responseData: UIImage) -> Void) {
+        let url = "https://image.tmdb.org/t/p/original/"
+        let imageRequest = "\(url)\(imagePath)"
+
+        Alamofire.request(imageRequest).responseImage { response in
+            if let image = response.result.value {
+                completion(image)
+            } else {
+                completion(UIImage())
+            }
         }
     }
     

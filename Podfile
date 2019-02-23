@@ -9,6 +9,7 @@ target 'TheMovieDB' do
     pod 'Alamofire'
     pod 'AlamofireImage'
     pod 'ObjectMapper'
+    pod 'MagazineLayout'
 
     target 'TheMovieDBTests' do
         inherit! :search_paths
